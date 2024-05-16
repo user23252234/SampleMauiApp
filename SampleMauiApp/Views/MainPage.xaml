@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:SampleMauiApp.ViewModels"
+             x:Class="SampleMauiApp.Views.MainPage"
+             Title="CarouselView Test">
+    <ContentPage.BindingContext>
+        <ViewModels:MainViewModel x:Name="ViewModels" />
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="*,Auto">
+        <CarouselView Grid.Row="0"
+                      ItemsSource="{Binding Questions}"
+                      HorizontalScrollBarVisibility="Never"
+                      Position="{Binding CarouselViewPosition}"
+                      EmptyView="No items to display."
+                      IsBounceEnabled="False"
+                      Loop="False">
+            <CarouselView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   SnapPointsType="MandatorySingle"
+                                   SnapPointsAlignment="Center" />
+            </CarouselView.ItemsLayout>
+
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout>
+                        <Label Text="{Binding QuestionContent}" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <HorizontalStackLayout Grid.Row="1"
+                               HorizontalOptions="Center">
+            <Button Text="OnPreviousQuestion"
+                    Command="{Binding PreviousQuestionCommand}" />
+            <Button Text="OnNextQuestion"
+                    Command="{Binding NextQuestionCommand}" />
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>
